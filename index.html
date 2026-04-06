@@ -442,7 +442,7 @@ src="https://www.facebook.com/tr?id=1679467643222276&ev=PageView&noscript=1"
     <a href="#sobre">Sobre</a>
     <a href="#servicos">Serviços</a>
     <a href="#como-funciona">Como Funciona</a>
-    <a href="https://wa.me/5511989969934?text=Olá,%20gostaria%20de%20agendar%20uma%20avaliação!" 
+    <a href="https://wa.me/5511989969934?text=Olá,%20gostaria%20de%20agendar%20uma%20avaliação!"
        class="nav-cta"
        onclick="handleClick(this); return false;">
        Agendar Avaliação
@@ -751,6 +751,7 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
+<!-- Funcao para chamada do backend -->
 <script>
 async function enviarLead(email, phone) {
   try {
@@ -774,43 +775,5 @@ async function enviarLead(email, phone) {
 }
 </script>
 
-<script>
-async function handleClick(element) {
-
-  const url = element.href;
-  const isNewTab = element.target === "_blank";
-
-  try {
-    // Pixel
-    if (typeof fbq !== "undefined") {
-      fbq('track', 'Lead');
-    }
-
-    // Backend
-    await fetch("https://api-leads.landpagedani-api.workers.dev/api/lead", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: "whatsapp@lead.com",
-        phone: "5511989969934"
-      })
-    });
-
-  } catch (error) {
-    console.error("Erro:", error);
-  }
-
-  // Redireciona manualmente
-  if (isNewTab) {
-    window.open(url, "_blank");
-  } else {
-    window.location.href = url;
-  }
-}
-</script>
-
-</script>
 </body>
 </html>
