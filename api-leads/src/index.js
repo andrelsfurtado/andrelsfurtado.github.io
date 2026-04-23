@@ -34,6 +34,27 @@ export default {
         });
       }
 
+      const pixelId = "1679467643222276";
+      const eventData = {
+        data: [{
+          event_name: "Lead",
+          event_time: Math.floor(Date.now() / 1000),
+          event_id: body.event_id || ("lead_" + Date.now()),
+          action_source: "website"
+        }]
+      };
+
+      try {
+        await fetch(
+          `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${env.FB_TOKEN}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(eventData)
+          }
+        );
+      } catch (_) {}
+
       return new Response(JSON.stringify({ success: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" }
       });

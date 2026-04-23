@@ -766,31 +766,24 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 <!-- Funcao de clique nos links de WhatsApp -->
 <script>
 function handleClick(el) {
+  const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
   if (typeof fbq !== 'undefined') {
-    fbq('track', 'Lead');
+    fbq('track', 'Lead', {}, { eventID: eventId });
   }
+  enviarLead(eventId);
   window.open(el.href, '_blank', 'noopener,noreferrer');
 }
 </script>
 
 <!-- Funcao para chamada do backend -->
 <script>
-async function enviarLead(email, phone) {
+async function enviarLead(eventId) {
   try {
-    const response = await fetch("https://api-leads.landpagedani-api.workers.dev/api/lead", {
+    await fetch("https://api-leads.landpagedani-api.workers.dev/api/lead", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: email,
-        phone: phone
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event_id: eventId })
     });
-
-    const data = await response.json();
-    console.log("Resposta da API:", data);
-
   } catch (error) {
     console.error("Erro ao enviar lead:", error);
   }
