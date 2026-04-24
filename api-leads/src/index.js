@@ -1,52 +1,54 @@
+const ALLOWED_ORIGIN = "https://www.biomedicadanielyreis.com.br";
+const PIXEL_ID = "1679467643222276";
+
 export default {
   async fetch(request, env) {
-
     const url = new URL(request.url);
+    const origin = request.headers.get("Origin") || "";
+    const allowedOrigin = origin === ALLOWED_ORIGIN ? ALLOWED_ORIGIN : "null";
 
     const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type"
+      "Access-Control-Allow-Origin": allowedOrigin,
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Vary": "Origin"
     };
 
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
     }
 
-    // 👇 proteção contra GET
     if (request.method !== "POST") {
-      return new Response("Use POST", {
-        status: 405,
-        headers: corsHeaders
-      });
+      return new Response("Use POST", { status: 405, headers: corsHeaders });
     }
 
     if (url.pathname === "/api/lead") {
-
       let body;
-
       try {
         body = await request.json();
       } catch (e) {
-        return new Response(JSON.stringify({ error: "JSON inválido" }), {
+        return new Response(JSON.stringify({ error: "JSON invalido" }), {
           status: 400,
           headers: { ...corsHeaders, "Content-Type": "application/json" }
         });
       }
 
-      const pixelId = "1679467643222276";
+      const eventId = typeof body.event_id === "string" && body.event_id.length <= 128
+        ? body.event_id
+        : "lead_" + Date.now();
+
       const eventData = {
         data: [{
           event_name: "Lead",
           event_time: Math.floor(Date.now() / 1000),
-          event_id: body.event_id || ("lead_" + Date.now()),
+          event_id: eventId,
           action_source: "website"
         }]
       };
 
       try {
         await fetch(
-          `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${env.FB_TOKEN}`,
+          `https://graph.facebook.com/v19.0/${PIXEL_ID}/events?access_token=${env.FB_TOKEN}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

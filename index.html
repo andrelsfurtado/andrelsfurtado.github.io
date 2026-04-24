@@ -4,8 +4,29 @@
 <meta charset="UTF-8">
 <meta name="facebook-domain-verification" content="x40lyitgtk801na4o5iynkbfko55nm" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daniely Reis | Biomédica Esteta</title>
+<title>Daniely Reis | Biomédica Esteta em São Paulo</title>
+<meta name="description" content="Daniely Reis, Biomédica Esteta com 18 anos de experiência em procedimentos injetáveis, harmonização glútea e estética facial e corporal. Agende sua avaliação gratuita.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.biomedicadanielyreis.com.br/">
+<meta property="og:title" content="Daniely Reis | Biomédica Esteta">
+<meta property="og:description" content="18 anos transformando vidas com ciência, precisão e cuidado. Procedimentos injetáveis, harmonização glútea e muito mais. Agende sua avaliação gratuita.">
+<meta property="og:image" content="https://www.biomedicadanielyreis.com.br/imagens/img_jpg_01.webp">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Daniely Reis Biomédica Esteta",
+  "description": "Especialista em procedimentos injetáveis, harmonização glútea e estética facial e corporal.",
+  "url": "https://www.biomedicadanielyreis.com.br",
+  "telephone": "+5511989969934",
+  "address": { "@type": "PostalAddress", "addressCountry": "BR", "addressRegion": "SP" },
+  "sameAs": ["https://wa.me/5511989969934"]
+}
+</script>
 <style>
   :root {
     --gold: #C9A96E;
@@ -52,6 +73,17 @@
     letter-spacing: 1.5px;
   }
   .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 24px; height: 2px; background: var(--cream);
+    transition: all .3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* ── HERO ─────────────────────── */
   #hero {
@@ -382,7 +414,15 @@
   /* ── RESPONSIVE ─────────────────────── */
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
-    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-links {
+      display: none; flex-direction: column; gap: 0;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(12,12,12,0.98); backdrop-filter: blur(8px);
+      justify-content: center; align-items: center; z-index: 99;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 18px; padding: 20px 0; letter-spacing: 3px; }
     #hero { grid-template-columns: 1fr; min-height: auto; }
     .hero-left { padding: 120px 24px 60px; }
     .hero-right { height: 400px; }
@@ -438,10 +478,13 @@ src="https://www.facebook.com/tr?id=1679467643222276&ev=PageView&noscript=1"
 <!-- NAV -->
 <nav>
   <img src="imagens/img_png_01.webp" alt="Daniely Reis">
-  <div class="nav-links">
-    <a href="#sobre">Sobre</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#como-funciona">Como Funciona</a>
+  <button class="nav-hamburger" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="#sobre" onclick="closeMenu()">Sobre</a>
+    <a href="#servicos" onclick="closeMenu()">Serviços</a>
+    <a href="#como-funciona" onclick="closeMenu()">Como Funciona</a>
     <a href="https://wa.me/5511989969934?text=Olá,%20gostaria%20de%20agendar%20uma%20avaliação!"
        class="nav-cta"
        target="_blank"
@@ -485,7 +528,7 @@ src="https://www.facebook.com/tr?id=1679467643222276&ev=PageView&noscript=1"
     </div>
   </div>
   <div class="hero-right">
-    <img src="imagens/img_jpg_01.webp" alt="Daniely Reis">
+    <img src="imagens/img_jpg_01.webp" alt="Daniely Reis" fetchpriority="high">
     <div class="hero-badge">
       <div class="hero-badge-num">★ 5.0</div>
       <div class="hero-badge-text">Avaliação dos Pacientes</div>
@@ -496,7 +539,7 @@ src="https://www.facebook.com/tr?id=1679467643222276&ev=PageView&noscript=1"
 <!-- SOBRE -->
 <section id="sobre">
   <div class="sobre-img fade-in">
-    <img src="imagens/img_jpg_02.webp" alt="Daniely Reis">
+    <img src="imagens/img_jpg_02.webp" alt="Daniely Reis" loading="lazy">
     <div class="sobre-img-badge">
       <div class="num">18</div>
       <div class="txt">Anos de<br>Expertise</div>
@@ -550,38 +593,38 @@ src="https://www.facebook.com/tr?id=1679467643222276&ev=PageView&noscript=1"
   <div class="services-grid fade-in">
     <div class="service-card">
       <div class="service-num">01</div>
-      <div class="service-num-icon"></div>
+
       <h3>Toxina Botulínica</h3>
       <p>Suavização de linhas de expressão e rugas com resultados naturais e duradouros. Técnica precisa para um visual renovado.</p>
     </div>
     <div class="service-card">
       <div class="service-num">02</div>
-      <div class="service-num-icon"></div>
+
       <h3>Bioestimuladores</h3>
       <p>Estimulação da produção de colágeno para firmeza e rejuvenescimento da pele com resultados progressivos e naturais.</p>
     </div>
     <div class="service-card">
       <div class="service-num">03</div>
-      <div class="service-num-icon"></div>
+
       <h3>Harmonização Glútea</h3>
       <p>Modelagem e volumização glútea com técnicas injetáveis seguras. Resultados expressivos e harmonizados ao seu corpo.</p>
     </div>
     <div class="service-card">
       <div class="service-num">04</div>
-      <div class="service-num-icon"></div>
+
       <h3>Gerenciamento de Pele</h3>
       <p>Avaliação e tratamento completo da pele com protocolos personalizados para controle de manchas, oleosidade e textura.</p>
     </div>
     <div class="service-card">
       <div class="service-num">05</div>
-      <div class="service-num-icon"></div>
+
       <h3>Tecnologias Avançadas</h3>
       <p>Ultrassom micro e macrofocado, Laser Facial, Depilação a Laser, Lipocavitação e Carboxiterapia.</p>
       <div class="service-sub">Equipamentos de última geração</div>
     </div>
     <div class="service-card">
       <div class="service-num">06</div>
-      <div class="service-num-icon"></div>
+
       <h3>Estética Integrativa</h3>
       <p>Protocolos para flacidez corporal e facial, além de Drenagem Linfática para bem-estar e resultados completos.</p>
     </div>
@@ -626,7 +669,7 @@ src="https://www.facebook.com/tr?id=1679467643222276&ev=PageView&noscript=1"
     </a>
   </div>
   <div class="pq-img fade-in">
-    <img src="imagens/img_jpg_03.webp" alt="Daniely Reis - Procedimentos">
+    <img src="imagens/img_jpg_03.webp" alt="Daniely Reis - Procedimentos" loading="lazy">
     <div class="pq-img-overlay">
       <p>"Transformação que vai além do físico — é sobre autoestima e qualidade de vida."</p>
       <span>Daniely Reis • Biomédica Esteta</span>
@@ -715,7 +758,7 @@ src="https://www.facebook.com/tr?id=1679467643222276&ev=PageView&noscript=1"
 <!-- CTA FINAL -->
 <section id="cta">
   <div class="cta-img">
-    <img src="imagens/img_jpg_04.webp" alt="Daniely Reis">
+    <img src="imagens/img_jpg_04.webp" alt="Daniely Reis" loading="lazy">
   </div>
   <div class="cta-content">
     <div class="section-tag">Próximo Passo</div>
@@ -748,9 +791,11 @@ src="https://www.facebook.com/tr?id=1679467643222276&ev=PageView&noscript=1"
 </footer>
 
 <!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/5511989969934?text=Olá%20Daniely!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações!" 
-   class="wpp-float" 
+<a href="https://wa.me/5511989969934?text=Olá%20Daniely!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações!"
+   class="wpp-float"
    target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Falar com Daniely Reis pelo WhatsApp"
    onclick="handleClick(this); return false;">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
@@ -761,6 +806,25 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+<!-- Menu mobile -->
+<script>
+function toggleMenu(btn) {
+  const nav = document.getElementById('nav-links');
+  const open = nav.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMenu() {
+  const nav = document.getElementById('nav-links');
+  const btn = document.querySelector('.nav-hamburger');
+  nav.classList.remove('open');
+  btn.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
 </script>
 
 <!-- Funcao de clique nos links de WhatsApp -->
