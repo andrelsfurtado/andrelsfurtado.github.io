@@ -5,10 +5,13 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
-    const allowedOrigin = origin === ALLOWED_ORIGIN ? ALLOWED_ORIGIN : "null";
+
+    if (origin !== ALLOWED_ORIGIN) {
+      return new Response("Forbidden", { status: 403 });
+    }
 
     const corsHeaders = {
-      "Access-Control-Allow-Origin": allowedOrigin,
+      "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
       "Vary": "Origin"
@@ -55,7 +58,7 @@ export default {
             body: JSON.stringify(eventData)
           }
         );
-      } catch (_) {}
+      } catch (err) { console.error("FB API error:", err); }
 
       return new Response(JSON.stringify({ success: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" }

@@ -831,7 +831,7 @@ function closeMenu() {
 <!-- Funcao de clique nos links de WhatsApp -->
 <script>
 function handleClick(el) {
-  const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
   if (typeof fbq !== 'undefined') {
     fbq('track', 'Lead', {}, { eventID: eventId });
   }
